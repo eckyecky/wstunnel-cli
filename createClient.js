@@ -10,5 +10,8 @@ module.exports = (address, bind, auth) => {
     wsUrl.username = auth.username
     wsUrl.password = auth.password
   }
-  client.start(bind, wsUrl.toString(), null, {})
+  const parts = bind.split(':')
+  const port = parts.pop()
+  const localAddress = parts[0] || '127.0.0.1'
+  client.start(localAddress, port, wsUrl.toString(), null, {})
 }
